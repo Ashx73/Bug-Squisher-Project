@@ -14,3 +14,6 @@ Goal: Build a playable MVP of Bug Squisher featuring the 3x3 code grid, random b
 
 Start: 16 Nov
 End: 24 Nov
+
+### Credits
+- Game logo came from Gemini
