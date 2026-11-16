@@ -1,1 +1,13 @@
-# project-1
+# Bug Squisher project-1
+
+## Project Planning
+
+- [Project board](https://github.com/users/Ashx73/projects/1)
+- [Wireframe](./wireframe.png)
+
+### Sprint 1
+
+Goal: [Describe the result you want.]
+
+Start: [Date]
+End: [Date]
