@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Squisher</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="app.js" defer></script>
+
+
+</head>
+<body>
+    <h1>Bug Squisher</h1>
+
+    <div class="buttons">
+        <button class="action-button" id="open-how-to-play" type="button">How to play</button>
+        <button class="action-button" id="open-levels" type="button">Deffucelty Level</button>
+        <button class="action-button" id="start" type="button">Start Game</button>
+    </div>
+  <dialog id="instructions">
+      <button class="action-button" id="close-how-to-play" type="button">❌ </button>
+        <h2>What to Expect on the Grid</h2>
+        <ul>
+            <li>🐞 Code Bugs (+1 Point): Bugs pop up randomly across the grid. Click them fast to squish them and increase your score!</li>
+            <li>⏱️ 30-Second Timer: Keeps track of your remaining sprint time.</li>
+            <li>🎯 Target Score (15 Points): Hit this score before the timer hits zero to deploy clean code and win.</li>
+        </ul>
+  </dialog>
+
+  <dialog id="diffucelty">
+      <button class="action-button" id="close-levels" type="button">❌ </button>
+        <h2>Select Difficulty</h2>
+            <button class="action-button" id="esay" type="button">Easy</button>
+            <button class="action-button" id="medium" type="button">Medium</button>
+            <button class="action-button" id="hard" type="button">Hard</button>
+        </ul>
+  </dialog>
+
+</body>
+</html>
