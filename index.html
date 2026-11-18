@@ -18,7 +18,7 @@
         <button class="action-button" id="start" type="button">Start Game</button>
     </div>
   <dialog id="instructions">
-      <button class="action-button" id="close-how-to-play" type="button">❌ </button>
+      <button class="x-button" id="close-how-to-play" type="button">❌ </button>
         <h2>What to Expect on the Grid</h2>
         <ul>
             <li>🐞 Code Bugs (+1 Point): Bugs pop up randomly across the grid. Click them fast to squish them and increase your score!</li>
@@ -28,13 +28,22 @@
   </dialog>
 
   <dialog id="diffucelty">
-      <button class="action-button" id="close-levels" type="button">❌ </button>
+      <button class="x-button" id="close-levels" type="button">❌ </button>
         <h2>Select Difficulty</h2>
-            <button class="action-button" id="esay" type="button">Easy</button>
+            <button class="action-button" id="easy" type="button">Easy</button>
             <button class="action-button" id="medium" type="button">Medium</button>
             <button class="action-button" id="hard" type="button">Hard</button>
-        </ul>
+        
   </dialog>
+
+    <div id="game-board" style="display: none;">
+        <div class="board-header">
+            <p>🐞 Bugs: <span id="score">0</span>/15</p>
+            <p>⏱️ Time: <span id="timer">30</span>s</p>
+        </div>
+        <canvas id="game-canvas" width="600" height="400"></canvas>
+    </div>
+
 
 </body>
 </html>

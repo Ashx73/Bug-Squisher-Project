@@ -1,5 +1,7 @@
 // VARIABLES
-// let bugSpeed = 
+let bugs = []
+let score = 0 
+let timer = 30
 
 
 //CACHED ELEMENTS
@@ -11,11 +13,16 @@ const openLevelsEl = document.querySelector('#open-levels')
 const diffuceltyModalEl = document.querySelector('#diffucelty')
 const closeLevelsEl = document.querySelector('#close-levels')
 
-const esayButtonEl = document.querySelector('#easy')
+const easyButtonEl = document.querySelector('#easy')
 const mediumButtonEl = document.querySelector('#medium')
 const hardButtonEl = document.querySelector('#hard')
 
 const startButtonEl = document.querySelector('#start')
+const gameBoardEl = document.querySelector('#board-header')
+
+
+const scoreEl = document.querySelector('#score');
+const timerEl = document.querySelector('#timer');
 
 //FUNCTIONS
 
@@ -37,22 +44,16 @@ closeLevelsEl.addEventListener('click', ()=>{
 diffuceltyModalEl.close()
 })
 
-esayButtonEl.addEventListener('click', ()=>{
-    bugSpeed =
-
-})
-
-mediumButtonEl.addEventListener('click', ()=>{
-
-})
-
-hardButtonEl.addEventListener('click', ()=>{
-
-})
-
+// easyButtonEl.addEventListener('click', ()=>{
+// })
+// mediumButtonEl.addEventListener('click', ()=>{
+// })
+// hardButtonEl.addEventListener('click', ()=>{
+// })
 
 
 startButtonEl.addEventListener('click', ()=>{
- // change the page and game start     
+    startButtonEl.style.display = 'none'
+    gameBoardEl.style.display = 'block'
 })
 
