@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bug Squisher</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐞</text></svg>">
+
     <link rel="stylesheet" href="./css/style.css">
     <script src="app.js" defer></script>
 
-
 </head>
 <body>
-    <h1>Bug Squisher</h1>
+    <h1>Bug Squisher🐞</h1>
 
     <div class="buttons">
         <button class="action-button" id="open-how-to-play" type="button">How to play</button>
@@ -29,19 +31,20 @@
 
   <dialog id="diffucelty">
       <button class="x-button" id="close-levels" type="button">❌ </button>
-        <h2>Select Difficulty</h2>
-            <button class="action-button" id="easy" type="button">Easy</button>
-            <button class="action-button" id="medium" type="button">Medium</button>
-            <button class="action-button" id="hard" type="button">Hard</button>
-        
-  </dialog>
-
-    <div id="game-board" style="display: none;">
+      <h2>Select Difficulty</h2>
+      <button class="action-button" id="easy" type="button">Easy</button>
+      <button class="action-button" id="medium" type="button">Medium</button>
+      <button class="action-button" id="hard" type="button">Hard</button>
+      
+    </dialog>
+    
+    <button class="action-button" id="home" type="button" style="display:none">Home</button>
+    <div id="game-board" style="display:none">    
         <div class="board-header">
             <p>🐞 Bugs: <span id="score">0</span>/15</p>
             <p>⏱️ Time: <span id="timer">30</span>s</p>
         </div>
-        <canvas id="game-canvas" width="600" height="400"></canvas>
+        <canvas id="game-canvas" width="420" height="300"></canvas>
     </div>
 
 

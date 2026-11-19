@@ -18,8 +18,10 @@ const mediumButtonEl = document.querySelector('#medium')
 const hardButtonEl = document.querySelector('#hard')
 
 const startButtonEl = document.querySelector('#start')
-const gameBoardEl = document.querySelector('#board-header')
-
+const gameBoardEl = document.querySelector('#game-board')
+const buttonsEl = document.querySelector('.buttons')
+const titleEl = document.querySelector('h1')
+const homeEl = document.querySelector('#home')
 
 const scoreEl = document.querySelector('#score');
 const timerEl = document.querySelector('#timer');
@@ -52,8 +54,23 @@ diffuceltyModalEl.close()
 // })
 
 
-startButtonEl.addEventListener('click', ()=>{
-    startButtonEl.style.display = 'none'
-    gameBoardEl.style.display = 'block'
-})
+// startButtonEl.addEventListener('click', ()=>{
+//     buttonsEl.style.display = 'none';
+//     titleEl.style.display = 'none';
+//     gameBoardEl.style.display = 'block'
+// })
 
+startButtonEl.addEventListener('click', () => {
+    titleEl.style.display = 'none';            
+    buttonsEl.style.display = 'none';
+    homeEl.style.display = 'block';
+    gameBoardEl.style.display = 'block';            
+});
+
+homeEl.addEventListener('click', () => {
+    titleEl.style.display = 'block';            
+    buttonsEl.style.display = 'block';
+    homeEl.style.display = 'none';
+    gameBoardEl.style.display = 'none';            
+    
+});
