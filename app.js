@@ -2,7 +2,11 @@
 let bugs = []
 let score = 0 
 let timer = 30
+let timeId = null
 let gameInterval;
+let timerInerval;
+let bugspeed = 2;
+
 
 
 //CACHED ELEMENTS
@@ -30,22 +34,24 @@ const timerEl = document.querySelector('#timer');
 const canvas = document.querySelector('#game-canvas');
 const ctx = canvas.getContext('2d');
 
+const messageEl = document.querySelector('#message')
+
 //FUNCTIONS
 
 function Bug() {
     const fromLeft = Math.random() < 0.5;
     if (fromLeft) {
-        this.x = -15;                 
+        this.x = -9;                 
         this.angle = Math.PI / 2;     
     } else {
-        this.x = canvas.width + 15;    
+        this.x = canvas.width + 9;    
         this.angle = -Math.PI / 2;     
     }
 
-    this.y = Math.random() * (canvas.height - 60) + 30;
+    this.y = Math.random() * (canvas.height - 40) + 20;
     this.width = 30;
     this.height = 30;
-    this.speed = 2;
+    this.speed = bugspeed;
     this.moveAngle = 0;
 
     this.draw = function() {
@@ -66,15 +72,58 @@ function Bug() {
         this.x += this.speed * Math.sin(this.angle);
         this.y -= this.speed * Math.cos(this.angle);
     };
+    this.ifOffScreen = function () {
+        return (
+            this.x < -10 ||
+            this.x > canvas.width + 10 ||
+            this.y < -10||
+            this.y > canvas.height + 10
+        );
+    };
 }
-const testBug = new Bug();
 
-    function gameLoop() {
+function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); 
-    testBug.move();
-    testBug.draw();
+    
+    if (bugs.length < 15 && Math.random () < 0.02) {
+        bugs.push(new Bug())
+    }
+    for (let i=bugs.length - 1; i>=0; i--) {
+        bugs[i].move();
+        bugs[i].draw();
+    
+        if (bugs[i].ifOffScreen()) {
+            bugs.splice(i,1)
+        }
+    }
 }
 
+const updateTimer = () => {
+    timer = timer - 1
+    timerEl.textContent = `${timer}`
+    if (timer === 0) {
+        clearInterval(timeId)
+        endGame()
+    }
+}
+
+function endGame() {
+    if (score === 15 && timer > 0) {
+        messageEl.textContent = `YOU WIN!` 
+        messageEl.style.display = 'block';
+        bugs=[];
+        clearInterval(gameInterval);
+        clearInterval(timeId);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    } else if (timer === 0 && score < 15){
+        messageEl.textContent = `Game Over`
+        messageEl.style.display = 'block';
+        bugs=[];
+        clearInterval(gameInterval);
+        clearInterval(timeId);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+}
 
 //EVENT LISTENER 
 openHowToPlayButtonEl.addEventListener('click', ()=>{
@@ -91,23 +140,36 @@ closeLevelsEl.addEventListener('click', ()=>{
 diffuceltyModalEl.close()
 })
 
-// easyButtonEl.addEventListener('click', ()=>{
-// })
-// mediumButtonEl.addEventListener('click', ()=>{ 
-// })
-// hardButtonEl.addEventListener('click', ()=>{  
-// })
+easyButtonEl.addEventListener('click', ()=>{
+    bugspeed = 2;
+    diffuceltyModalEl.close()
+})
+mediumButtonEl.addEventListener('click', ()=>{ 
+    bugspeed = 4
+    diffuceltyModalEl.close()
+})
+hardButtonEl.addEventListener('click', ()=>{  
+    bugspeed = 6
+    diffuceltyModalEl.close()
+})
             
-            
-    
 startButtonEl.addEventListener('click', () => {
     titleEl.style.display = 'none';            
     buttonsEl.style.display = 'none';
     homeEl.style.display = 'block';
     gameBoardEl.style.display = 'block';  
     
+    bugs = [];
+    score = 0;
+    timer = 30;
+    scoreEl.textContent = `${score}`;
+    timerEl.textContent = `${timer}`;
+    messageEl.style.display = 'none';
+
     clearInterval(gameInterval);
+    clearInterval(timerInerval);
     gameInterval = setInterval(gameLoop, 20);
+    timeId = setInterval(updateTimer, 1000)
 });
 
 homeEl.addEventListener('click', () => {
@@ -116,5 +178,25 @@ homeEl.addEventListener('click', () => {
     homeEl.style.display = 'none';
     gameBoardEl.style.display = 'none';
     
-    clearInterval(gameInterval)
+    clearInterval(gameInterval);
+    clearInterval(timeId);
 });
+
+canvas.addEventListener('click', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    for (let i = bugs.length - 1; i >= 0; i--) {
+        const distanceX = mouseX - bugs[i].x;
+        const distanceY = mouseY - bugs[i].y;
+        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+        if (distance < 25) {
+            bugs.splice(i, 1); 
+            score++;           
+            scoreEl.textContent = `${score}`                        
+            endGame()
+        }
+    }
+})
