@@ -18,10 +18,6 @@ const openLevelsEl = document.querySelector('#open-levels')
 const diffuceltyModalEl = document.querySelector('#diffucelty')
 const closeLevelsEl = document.querySelector('#close-levels')
 
-const easyButtonEl = document.querySelector('#easy')
-const mediumButtonEl = document.querySelector('#medium')
-const hardButtonEl = document.querySelector('#hard')
-
 const startButtonEl = document.querySelector('#start')
 const gameBoardEl = document.querySelector('#game-board')
 const buttonsEl = document.querySelector('.buttons')
@@ -161,18 +157,18 @@ closeLevelsEl.addEventListener('click', ()=>{
 diffuceltyModalEl.close()
 })
 
-easyButtonEl.addEventListener('click', ()=>{
-    bugspeed = 2;
-    diffuceltyModalEl.close()
-})
-mediumButtonEl.addEventListener('click', ()=>{ 
-    bugspeed = 4
-    diffuceltyModalEl.close()
-})
-hardButtonEl.addEventListener('click', ()=>{  
-    bugspeed = 6
-    diffuceltyModalEl.close()
-})
+diffuceltyModalEl.addEventListener('click', (event) => {
+    if (event.target.id === 'easy') {
+        bugspeed = 2;
+        diffuceltyModalEl.close();
+    } else if (event.target.id === 'medium') {
+        bugspeed = 4;
+        diffuceltyModalEl.close();
+    } else if (event.target.id === 'hard') {
+        bugspeed = 6;
+        diffuceltyModalEl.close();
+    }
+});
             
 startButtonEl.addEventListener('click', () => {
     titleEl.style.display = 'none';            
