@@ -1,13 +1,13 @@
 :root {
-  --color-primary: #3b82f6;        /* أزرق تقني للأزرار وشريط البورد العلوي */
-  --color-primary-hover: #2563eb;  /* أزرق أغمق عند تمرير الماوس */
+  --color-primary: #3b82f6;        
+  --color-primary-hover: #2563eb;  
 
-  --color-background: #0f172a;     /* كحلي داكن جداً لخلفية الصفحة */
-  --color-surface: #1e293b;        /* رمادي مائل للكحلي لأرضية اللعب (Canvas) */
-  --color-text: #f8fafc;           /* أبيض ناصع للنصوص */
+  --color-background: #0f172a;     
+  --color-surface: #1e293b;        
+  --color-text: #f8fafc;           
 
-  --color-success: #22c55e;        /* أخضر نيون (للفوز / Clean Code Deployed) */
-  --color-error: #ef4444;          /* أحمر ساطع (لأثر السحق / انتهاء الوقت) */
+  --color-success: #b4d3c0;        
+  --color-error: #b92348;                   
 }
 
 * {
@@ -90,4 +90,13 @@ body {
     width: 100%;
     text-align: center;
     font-size: 4rem;
+}
+
+
+.reset {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }

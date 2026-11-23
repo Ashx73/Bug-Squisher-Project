@@ -1,10 +1,10 @@
 // VARIABLES
-let bugs = []
-let score = 0 
-let timer = 30
-let timeId = null
+let bugs = [];
+let splats = [];
+let score = 0 ;
+let timer = 30;
+let timeId = null;
 let gameInterval;
-let timerInerval;
 let bugspeed = 2;
 
 
@@ -35,6 +35,7 @@ const canvas = document.querySelector('#game-canvas');
 const ctx = canvas.getContext('2d');
 
 const messageEl = document.querySelector('#message')
+const playAgainEl =document.querySelector('#play-again')
 
 //FUNCTIONS
 
@@ -84,6 +85,18 @@ function Bug() {
 
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); 
+
+    for (let i = splats.length - 1; i >= 0; i--) {
+        ctx.font = "40px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("💥", splats[i].x, splats[i].y);
+        
+        splats[i].timer = splats[i].timer -1;
+        if (splats[i].timer <= 0) {
+            splats.splice(i, 1);
+       }
+    }
     
     if (bugs.length < 15 && Math.random () < 0.02) {
         bugs.push(new Bug())
@@ -98,6 +111,10 @@ function gameLoop() {
     }
 }
 
+const squishSound = new Audio('./assets/squish.mp3')
+squishSound.volume = 0.5
+
+
 const updateTimer = () => {
     timer = timer - 1
     timerEl.textContent = `${timer}`
@@ -109,16 +126,20 @@ const updateTimer = () => {
 
 function endGame() {
     if (score === 15 && timer > 0) {
-        messageEl.textContent = `YOU WIN!` 
-        messageEl.style.display = 'block';
+        messageEl.textContent = `YOU WIN!`
+        messageEl.style.color ='#b4d3c0';
+        messageEl.style.display = 'inline-block';
         bugs=[];
+        splats=[];
         clearInterval(gameInterval);
         clearInterval(timeId);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     } else if (timer === 0 && score < 15){
         messageEl.textContent = `Game Over`
+        messageEl.style.color = '#b92348';
         messageEl.style.display = 'block';
         bugs=[];
+        splats=[];
         clearInterval(gameInterval);
         clearInterval(timeId);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -156,10 +177,12 @@ hardButtonEl.addEventListener('click', ()=>{
 startButtonEl.addEventListener('click', () => {
     titleEl.style.display = 'none';            
     buttonsEl.style.display = 'none';
-    homeEl.style.display = 'block';
+    homeEl.style.display = 'inline-block';
+    playAgainEl.style.display = 'inline-block';
     gameBoardEl.style.display = 'block';  
     
     bugs = [];
+    splats=[];
     score = 0;
     timer = 30;
     scoreEl.textContent = `${score}`;
@@ -167,7 +190,7 @@ startButtonEl.addEventListener('click', () => {
     messageEl.style.display = 'none';
 
     clearInterval(gameInterval);
-    clearInterval(timerInerval);
+    clearInterval(timeId);
     gameInterval = setInterval(gameLoop, 20);
     timeId = setInterval(updateTimer, 1000)
 });
@@ -176,7 +199,9 @@ homeEl.addEventListener('click', () => {
     titleEl.style.display = 'block';            
     buttonsEl.style.display = 'block';
     homeEl.style.display = 'none';
+    playAgainEl.style.display = 'none'
     gameBoardEl.style.display = 'none';
+    messageEl.style.display = 'none';
     
     clearInterval(gameInterval);
     clearInterval(timeId);
@@ -193,10 +218,35 @@ canvas.addEventListener('click', (event) => {
         const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         if (distance < 25) {
+            squishSound.play()
+            splats.push({x: bugs[i].x ,y: bugs[i].y, timer: 15})
             bugs.splice(i, 1); 
             score++;           
             scoreEl.textContent = `${score}`                        
-            endGame()
+            endGame();
+            break;
         }
     }
+    
 })
+
+playAgainEl.addEventListener('click', () => {
+    titleEl.style.display = 'none';            
+    buttonsEl.style.display = 'none';
+    homeEl.style.display = 'inline-block';
+    playAgainEl.style.display = 'inline-block';
+    gameBoardEl.style.display = 'block';  
+    
+    bugs = [];
+    splats=[];
+    score = 0;
+    timer = 30;
+    scoreEl.textContent = `${score}`;
+    timerEl.textContent = `${timer}`;
+    messageEl.style.display = 'none';
+
+    clearInterval(gameInterval);
+    clearInterval(timeId);
+    gameInterval = setInterval(gameLoop, 20);
+    timeId = setInterval(updateTimer, 1000)
+});
