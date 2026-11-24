@@ -120,6 +120,26 @@ const updateTimer = () => {
     }
 }
 
+function startGame(){
+titleEl.style.display = 'none';            
+    buttonsEl.style.display = 'none';
+    homeEl.style.display = 'inline-block';
+    playAgainEl.style.display = 'inline-block';
+    gameBoardEl.style.display = 'block';  
+    
+    bugs = [];
+    splats=[];
+    score = 0;
+    timer = 30;
+    scoreEl.textContent = `${score}`;
+    timerEl.textContent = `${timer}`;
+    messageEl.style.display = 'none';
+
+    clearInterval(gameInterval);
+    clearInterval(timeId);
+    gameInterval = setInterval(gameLoop, 20);
+    timeId = setInterval(updateTimer, 1000)
+}
 function endGame() {
     if (score === 15 && timer > 0) {
         messageEl.textContent = `YOU WIN!`
@@ -170,26 +190,7 @@ diffuceltyModalEl.addEventListener('click', (event) => {
     }
 });
             
-startButtonEl.addEventListener('click', () => {
-    titleEl.style.display = 'none';            
-    buttonsEl.style.display = 'none';
-    homeEl.style.display = 'inline-block';
-    playAgainEl.style.display = 'inline-block';
-    gameBoardEl.style.display = 'block';  
-    
-    bugs = [];
-    splats=[];
-    score = 0;
-    timer = 30;
-    scoreEl.textContent = `${score}`;
-    timerEl.textContent = `${timer}`;
-    messageEl.style.display = 'none';
-
-    clearInterval(gameInterval);
-    clearInterval(timeId);
-    gameInterval = setInterval(gameLoop, 20);
-    timeId = setInterval(updateTimer, 1000)
-});
+startButtonEl.addEventListener('click', startGame);
 
 homeEl.addEventListener('click', () => {
     titleEl.style.display = 'block';            
@@ -214,6 +215,7 @@ canvas.addEventListener('click', (event) => {
         const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         if (distance < 25) {
+            squishSound.currentTime = 0;
             squishSound.play()
             splats.push({x: bugs[i].x ,y: bugs[i].y, timer: 15})
             bugs.splice(i, 1); 
@@ -226,23 +228,4 @@ canvas.addEventListener('click', (event) => {
     
 })
 
-playAgainEl.addEventListener('click', () => {
-    titleEl.style.display = 'none';            
-    buttonsEl.style.display = 'none';
-    homeEl.style.display = 'inline-block';
-    playAgainEl.style.display = 'inline-block';
-    gameBoardEl.style.display = 'block';  
-    
-    bugs = [];
-    splats=[];
-    score = 0;
-    timer = 30;
-    scoreEl.textContent = `${score}`;
-    timerEl.textContent = `${timer}`;
-    messageEl.style.display = 'none';
-
-    clearInterval(gameInterval);
-    clearInterval(timeId);
-    gameInterval = setInterval(gameLoop, 20);
-    timeId = setInterval(updateTimer, 1000)
-});
+playAgainEl.addEventListener('click', startGame);
